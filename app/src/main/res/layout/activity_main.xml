@@ -17,6 +17,7 @@
         android:id="@+id/main_et_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="我是你爹"
         />
     <TextView
         android:id="@+id/main_tv_result"
@@ -26,6 +27,11 @@
     <Button
         android:onClick="btnBase64Encode"
         android:text="Base64编码"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:onClick="btnBase64Decode"
+        android:text="Base64解码"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

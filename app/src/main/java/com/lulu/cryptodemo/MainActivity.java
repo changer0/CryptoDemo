@@ -26,5 +26,15 @@ public class MainActivity extends AppCompatActivity {
         // Base64 编码, NO_WRAP 代表编码的结果没有任何换行
         String encoded = Base64.encodeToString(str.getBytes(), Base64.NO_WRAP);
         mTextResult.setText(encoded);
+
+
+
+    }
+
+
+    public void btnBase64Decode(View view) {
+        String str = mTextResult.getText().toString().trim();
+        byte[] decode = Base64.decode(str, Base64.NO_WRAP);
+        mTextResult.setText(new String(decode));
     }
 }
