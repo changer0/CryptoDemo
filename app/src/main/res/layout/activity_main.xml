@@ -13,27 +13,48 @@
     tools:context="com.lulu.cryptodemo.MainActivity">
 
     <EditText
-        android:hint="请输入待加密数据"
         android:id="@+id/main_et_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="请输入待加密数据"
         android:text="我是你爹"
         />
+
     <TextView
         android:id="@+id/main_tv_result"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:onClick="btnBase64Encode"
-        android:text="Base64编码"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:text="Base64编码"/>
+
     <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:onClick="btnBase64Decode"
-        android:text="Base64解码"
+        android:text="Base64解码"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="btnURLDecoding"
+        android:text="URLEncoding"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="btnURLEncoding"
+        android:text="URLEncoding"/>
+
+    <Button
+        android:text="gzip压缩"
+        android:onClick="btnGzipTest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
 
 
 </LinearLayout>
