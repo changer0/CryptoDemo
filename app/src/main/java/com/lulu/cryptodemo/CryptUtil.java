@@ -1,5 +1,6 @@
 package com.lulu.cryptodemo;
 
+import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -11,6 +12,7 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
+import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
@@ -119,7 +121,7 @@ public final class CryptUtil {
 
 
     ///////////////////////////////////////////////////////////////////////////
-    //  AES 方式
+    //  AES 方式 1
     ///////////////////////////////////////////////////////////////////////////
     public static byte[] aesEncryptSimple(byte[] data, byte[] key) {
         byte[] ret = null;
@@ -172,6 +174,89 @@ public final class CryptUtil {
                 }
             }
         }
+        return ret;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // AES 方式2 使用两套密码
+    ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * 使用两套密码的加密, 密码强度更高
+     * @param data 数据
+     * @param key 第一个密码
+     * @param ivData 第二个密码
+     * @return byte[]
+     */
+    public static byte[] aesEncryptWithIv(byte[] data, byte[] key, byte[] ivData) {
+        byte[] ret = null;
+
+        if (data != null && key != null && ivData != null) {
+            if (data.length > 0 && key.length == 16 && ivData.length == 16) {
+                // 使用两套密码的, 算法需要写成 AES/算法模式/填充模式
+                try {
+                    Cipher cipher = Cipher.getInstance("AEC/CBC/PKCS5Padding");
+                    // 准备第一套密码
+                    SecretKeySpec keySpec = new SecretKeySpec(key, "AES");
+                    // 准备第二套密码
+                    IvParameterSpec ivParameterSpec = new IvParameterSpec(ivData);
+                    cipher.init(Cipher.ENCRYPT_MODE, keySpec, ivParameterSpec);
+                    ret = cipher.doFinal();
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                } catch (NoSuchPaddingException e) {
+                    e.printStackTrace();
+                } catch (InvalidAlgorithmParameterException e) {
+                    e.printStackTrace();
+                } catch (InvalidKeyException e) {
+                    e.printStackTrace();
+                } catch (BadPaddingException e) {
+                    e.printStackTrace();
+                } catch (IllegalBlockSizeException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return ret;
+    }
+    /**
+     * 使用两套密码的解密, 密码强度更高
+     * @param data 数据
+     * @param key 第一个密码
+     * @param ivData 第二个密码
+     * @return byte[]
+     */
+    public static byte[] aesDecryptWithIv(byte[] data, byte[] key, byte[] ivData) {
+        byte[] ret = null;
+
+        if (data != null && key != null && ivData != null) {
+            if (data.length > 0 && key.length == 16 && ivData.length == 16) {
+                // 使用两套密码的, 算法需要写成 AES/算法模式/填充模式
+                try {
+                    Cipher cipher = Cipher.getInstance("AEC/CBC/PKCS5Padding");
+                    // 准备第一套密码
+                    SecretKeySpec keySpec = new SecretKeySpec(key, "AES");
+                    // 准备第二套密码
+                    IvParameterSpec ivParameterSpec = new IvParameterSpec(ivData);
+                    cipher.init(Cipher.DECRYPT_MODE, keySpec, ivParameterSpec);
+                    ret = cipher.doFinal();
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                } catch (NoSuchPaddingException e) {
+                    e.printStackTrace();
+                } catch (InvalidAlgorithmParameterException e) {
+                    e.printStackTrace();
+                } catch (InvalidKeyException e) {
+                    e.printStackTrace();
+                } catch (BadPaddingException e) {
+                    e.printStackTrace();
+                } catch (IllegalBlockSizeException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
         return ret;
     }
 
