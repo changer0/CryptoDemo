@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText mTextContent;
     private TextView mTextResult;
+    private EditText mPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mTextContent = (EditText) findViewById(R.id.main_et_content);
         mTextResult = (TextView) findViewById(R.id.main_tv_result);
+
+        mPassword = (EditText) findViewById(R.id.main_text_password);
 
     }
 
@@ -111,6 +114,23 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+
+    }
+
+    public void btnDesTest(View view) {
+        String str = mTextContent.getText().toString().trim();
+        String pwd = mPassword.getText().toString().trim();
+
+        byte[] encrypt = CryptUtil.desEncrypt(str.getBytes(), pwd.getBytes());
+        //所有经过加密的数据必须进过Base64获取
+        String s = Base64.encodeToString(encrypt, Base64.NO_WRAP);
+        mTextResult.setText(s);
+
+        //解密, 把Base64字符串, 还原并且解密
+        byte[] decode = Base64.decode(s, Base64.NO_WRAP);
+        byte[] data = CryptUtil.desDecrypt(decode, pwd.getBytes());
+        String ss = new String(data);
+        Log.d("DES解密", "btnDesTest: ss ===> " + ss);
 
     }
 }

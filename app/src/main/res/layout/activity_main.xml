@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -52,6 +55,19 @@
     <Button
         android:text="gzip压缩"
         android:onClick="btnGzipTest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <EditText
+        android:text="12345678"
+        android:id="@+id/main_text_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:onClick="btnDesTest"
+        android:text="DES加密"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
